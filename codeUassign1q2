@@ -63,11 +63,12 @@ class SinglyLinkedList(object):
             currentNode = currentNode.next
         
     def findNode(self, k):
-        # find the kth node of the list
+        # find the kth node of the list, if k is larger than list size, then count from head again
         if k > self.size():
             k = k % self.size()
         if k == 0:
-            return self.head
+            # return the end node of the list
+            k = self.size()
         # find the kth to last element
         endNode = self.head
         kthNode = self.head
@@ -83,7 +84,8 @@ class SinglyLinkedList(object):
             kthNode = kthNode.next
         
         return kthNode
-        
+      
+# a try        
 myList = SinglyLinkedList()
 myList.add(12)
 myList.add(14)
