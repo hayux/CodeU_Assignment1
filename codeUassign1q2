@@ -1,0 +1,97 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+Created on Mon May 15 20:36:55 2017
+
+@author: hexu
+"""
+
+class Node(object):
+    def __init__(self, data = None, next = None):
+        self.value = data
+        self.next = next
+        
+    def add_next(self, nextNode):
+        self.next = nextNode
+    
+    def add_value(self, newData):
+        self.value = newData
+        
+    def get_next(self):
+        return self.next
+        
+    def get_value(self):
+        return self.value
+        
+
+class SinglyLinkedList(object):
+    def __init__(self):
+        self.head = None
+        
+    def isEmpty(self):
+        return self.head == None
+        
+    def add(self, myNode):
+        tempNode = Node(myNode)
+        tempNode.add_next(self.head)
+        self.head = tempNode
+    
+    def removeHead(self):
+        # remove the head
+        self.head = self.head.next
+    
+    def removeEnd(self):
+        # remove the end
+        currentNode = self.head
+        while currentNode.next.next is not None:
+            currentNode = currentNode.next
+        
+        currentNode.next = None
+    
+    def size(self):
+        currentNode = self.head
+        mySize = 0
+        while currentNode is not None:
+            currentNode = currentNode.next
+            mySize = mySize + 1
+        return mySize
+    
+    def printAllNodes(self):
+        currentNode = self.head
+        while currentNode is not None:
+            print(currentNode.value)
+            currentNode = currentNode.next
+        
+    def findNode(self, k):
+        # find the kth node of the list, if k is larger than list size, then count from head again
+        if k > self.size():
+            k = k % self.size()
+        if k == 0:
+            # return the end node of the list
+            k = self.size()
+        # find the kth to last element
+        endNode = self.head
+        kthNode = self.head
+        
+        # let the endNode walk first k steps
+        while k:
+            endNode = endNode.next
+            k= k - 1
+        
+        # start walking two nodes until endNode meets end
+        while endNode is not None:
+            endNode = endNode.next
+            kthNode = kthNode.next
+        
+        return kthNode
+      
+# a try        
+myList = SinglyLinkedList()
+myList.add(12)
+myList.add(14)
+myList.add(53)
+myList.add(31)
+
+
+myNode = myList.findNode(8)
+print(myNode.value)
